@@ -275,6 +275,8 @@ public class MovieInfo extends Activity {
         else ratingBar.setVisibility(View.GONE);
         genre.setText(movieData.genre);
         story.setText(movieData.story);
+        if (movieData.director == null)
+            director.setVisibility(View.GONE);
         director.setText(movieData.director);
         writer.setText(movieData.producer);
         cast.setText(movieData.stars);
