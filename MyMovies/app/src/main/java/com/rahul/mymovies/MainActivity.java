@@ -14,6 +14,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             snack = Snackbar.make(drawer, "Press back again to exit", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(android.R.color.white));
             ViewGroup group = (ViewGroup) snack.getView();
-            group.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            group.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             snack.show();
 //            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
@@ -144,25 +146,13 @@ public class MainActivity extends AppCompatActivity
         this.mMenu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        menu.findItem(R.id.action_settings).setVisible(false);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        try {
-            Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
-            mCursorDrawableRes.setAccessible(true);
-            mCursorDrawableRes.set(searchView, R.drawable.cursor); //This sets the cursor resource ID to 0 or @null which will make it visible on white background
-        } catch (Exception e) {
-        }
-        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+        android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 initializeFragment("http://world4ufree.cc/?s=" + query.replace(' ', '+'), query, true);
                 setTitle(query);
-                searchView.setIconified(true);
-                searchView.setQuery(query, false);
-                searchView.clearFocus();
-                return true;
+                return false;
             }
 
             @Override
@@ -170,20 +160,44 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+//        menu.findItem(R.id.action_settings).setVisible(false);
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        try {
+//            Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+//            mCursorDrawableRes.setAccessible(true);
+//            mCursorDrawableRes.set(searchView, R.drawable.cursor); //This sets the cursor resource ID to 0 or @null which will make it visible on white background
+//        } catch (Exception e) {
+//        }
+//        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                initializeFragment("http://world4ufree.cc/?s=" + query.replace(' ', '+'), query, true);
+//                setTitle(query);
+//                searchView.setIconified(true);
+//                searchView.setQuery(query, false);
+//                searchView.clearFocus();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

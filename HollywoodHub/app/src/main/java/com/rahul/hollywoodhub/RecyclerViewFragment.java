@@ -35,6 +35,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,7 +136,8 @@ public class RecyclerViewFragment extends Fragment{
                     information.link = "http://www.watchfree.to"+e.select("a").attr("href");
                     list.add(information);
                 }
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 e.printStackTrace();
             }
             return null;

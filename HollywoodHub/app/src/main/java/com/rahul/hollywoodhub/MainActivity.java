@@ -1,5 +1,9 @@
 package com.rahul.hollywoodhub;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,android.support.v7.widget.SearchView.OnQueryTextListener {
     private Toolbar toolbar;
@@ -202,16 +209,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             tvSeriesText = "&tv=";
             forMoviePage = false;
             setViewPagerAdapter(DEFAULT_LINK);
+        }else if (id == R.id.nav_share) {
+            try {
+                PackageManager pm = getPackageManager();
+                ApplicationInfo ai = pm.getApplicationInfo(getPackageName(), 0);
+                File srcFile = new File(ai.publicSourceDir);
+                Intent share = new Intent();
+                share.setAction(Intent.ACTION_SEND);
+                share.setType("application/vnd.android.package-archive");
+                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(srcFile));
+                startActivity(Intent.createChooser(share, "Share App .."));
+            } catch (Exception e) {
+                Log.e("ShareApp", e.getMessage());
+            }
+        } else if (id == R.id.nav_send) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","rahulpandey1501@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback -Hollywood Hub");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+            startActivity(Intent.createChooser(emailIntent, "Send email using..."));
         }
-//        else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

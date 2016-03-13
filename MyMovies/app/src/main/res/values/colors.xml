@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1D242A</color>
     <color name="colorPrimaryDark">#1D242A</color>
-    <color name="colorAccent">#1D242A</color>
+    <color name="colorAccent">#FFFFFF</color>
     <color name="rating">#E4BB24</color>
 
     <!--whatsap color code = 065E52-->

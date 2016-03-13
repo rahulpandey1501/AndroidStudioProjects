@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -48,6 +49,7 @@ public class MovieInfo extends Activity {
     Spinner selectSeason, selectEpisode;
     List<LinkedHashMap<String, String>> downloadListTVSeason;
     ProgressBar recyclerProgressbar;
+    View viewSpanDwnlnk;
     private ProgressDialog dialog;
     private Button submitButtonTVSeries;
     boolean isTVSeries = false, changeFromSeasonAsyncTask = false;
@@ -93,7 +95,7 @@ public class MovieInfo extends Activity {
         @Override
         protected void onPreExecute() {
             downloadList = new ArrayList<>();
-            recyclerView.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.GONE);
             recyclerProgressbar.setVisibility(View.VISIBLE);
             if (!changeFromSeasonAsyncTask) {
                 movieLayout.setVisibility(View.INVISIBLE);
@@ -156,6 +158,13 @@ public class MovieInfo extends Activity {
                         movieData.stars = query;
                 }
             }catch (Exception e){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MovieInfo.this, "Network error please try again ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                finish();
                 e.printStackTrace();
             }
             return  null;
@@ -203,7 +212,6 @@ public class MovieInfo extends Activity {
                                         .get(selectSeason.getSelectedItemPosition())
                                         .get(selectEpisode.getSelectedItem().toString())
                         );
-                        recyclerView.scrollToPosition(0);
                         selectEpisode.requestFocus();
                         submitButtonTVSeries.setVisibility(View.GONE);
                         recyclerProgressbar.requestFocus();
@@ -231,8 +239,9 @@ public class MovieInfo extends Activity {
 //                });
             }
 
-            recyclerView.removeAllViews();
-//            Log.d("size", downloadList.size() + "");
+            if (!downloadList.isEmpty())
+                viewSpanDwnlnk.setVisibility(View.GONE);
+
             adapter = new RecyclerViewAdapter(getApplicationContext(), downloadList, false);
             recyclerView.setAdapter(adapter);
             WrappingLinearLayoutManager layout = new WrappingLinearLayoutManager(getApplicationContext());
@@ -292,6 +301,7 @@ public class MovieInfo extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_download);
         recyclerProgressbar = (ProgressBar) findViewById(R.id.recycler_progressbar);
         submitButtonTVSeries = (Button) findViewById(R.id.submitButtonTVSeries);
+        viewSpanDwnlnk = findViewById(R.id.view_span_dwnlnk);
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.rating), PorterDuff.Mode.SRC_ATOP);
     }
