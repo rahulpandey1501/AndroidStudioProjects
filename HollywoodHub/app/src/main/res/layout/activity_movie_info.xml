@@ -16,8 +16,12 @@
         android:layout_height="20dp"
         android:text=""/>
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:fadeScrollbars="false"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants"
         android:fillViewport="true"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -316,7 +320,7 @@
                 android:id="@+id/recycler_download">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
 
 </LinearLayout>
