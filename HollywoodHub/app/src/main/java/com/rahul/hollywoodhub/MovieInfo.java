@@ -95,7 +95,7 @@ public class MovieInfo extends Activity {
         @Override
         protected void onPreExecute() {
             downloadList = new ArrayList<>();
-            recyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.INVISIBLE);
             recyclerProgressbar.setVisibility(View.VISIBLE);
             if (!changeFromSeasonAsyncTask) {
                 movieLayout.setVisibility(View.INVISIBLE);
@@ -164,7 +164,6 @@ public class MovieInfo extends Activity {
                         Toast.makeText(MovieInfo.this, "Network error please try again ", Toast.LENGTH_SHORT).show();
                     }
                 });
-                finish();
                 e.printStackTrace();
             }
             return  null;
