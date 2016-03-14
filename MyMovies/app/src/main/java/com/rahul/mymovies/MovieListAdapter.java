@@ -49,7 +49,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Cust
             holder.itemView.findViewById(R.id.recycler_gridlist).setVisibility(View.VISIBLE);
             holder.itemView.findViewById(R.id.recycler_dlist).setVisibility(View.GONE);
             holder.title.setText(information.title);
-            Picasso.with(context).load(information.image).placeholder(android.R.drawable.gallery_thumb).into(holder.image);
+            Picasso.with(context).load(information.image).placeholder(R.drawable.placeholder).into(holder.image);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

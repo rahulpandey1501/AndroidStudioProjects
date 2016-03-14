@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,10 +11,13 @@
     android:id="@+id/card_view"
     android:focusable="true"
     app:cardUseCompatPadding="true"
-    app:cardElevation="4dp"
+    app:cardElevation="2dp"
     app:contentPadding="0dp"
     android:padding="0dp"
-    card_view:layout_margin="8dp"
+    card_view:layout_marginTop="6dp"
+    card_view:layout_marginLeft="6dp"
+    card_view:layout_marginRight="6dp"
+    card_view:layout_marginBottom="0dp"
     app:cardBackgroundColor="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -52,38 +60,41 @@
         <!--android:layout_width="match_parent"-->
         <!--app:cardUseCompatPadding="true"-->
         <!--app:cardBackgroundColor="@android:color/transparent"-->
-        <!--android:layout_height="wrap_content">-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycler_dlist"
-        android:background="@android:color/transparent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dTitle"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:gravity="start"
-            android:textAllCaps="true"
-            android:padding="4dp"
-            android:background="#90000000"
-            android:ellipsize="end"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dLink"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="#ffffff"
-            android:gravity="start"
-            android:background="#80000000"
-            android:padding="4dp" />
-    </LinearLayout>
     <!--</android.support.v7.widget.CardView>-->
 </android.support.v7.widget.CardView>
+
+
+    <!--android:layout_height="wrap_content">-->
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/recycler_dlist"
+android:background="@android:color/transparent"
+android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/dTitle"
+    android:textSize="12sp"
+    android:maxLines="1"
+    android:textStyle="bold"
+    android:textColor="#ffffff"
+    android:gravity="start"
+    android:textAllCaps="true"
+    android:padding="4dp"
+    android:background="#90000000"
+    android:ellipsize="end"/>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/dLink"
+    android:textSize="12sp"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textColor="#ffffff"
+    android:gravity="start"
+    android:background="#80000000"
+    android:padding="4dp" />
+</LinearLayout>
+</LinearLayout>

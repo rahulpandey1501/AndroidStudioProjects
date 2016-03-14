@@ -75,6 +75,8 @@ public class MovieContent extends AppCompatActivity {
     static int arrowToggle = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);// hide statusbar of Android
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_content);

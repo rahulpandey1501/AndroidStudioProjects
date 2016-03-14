@@ -222,7 +222,7 @@ public class ParserFragment extends Fragment{
     private void initializeRecyclerView() {
         adapter = new MovieListAdapter(getContext(), list, true);
         recyclerView.setAdapter(adapter);
-        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 250);
+        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 240);
         recyclerView.setLayoutManager(mGridLayoutManager);
     }
 

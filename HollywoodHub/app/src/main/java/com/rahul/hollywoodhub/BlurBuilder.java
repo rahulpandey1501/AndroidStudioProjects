@@ -2,6 +2,8 @@ package com.rahul.hollywoodhub;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -30,6 +32,19 @@ public class BlurBuilder {
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
 
-        return outputBitmap;
+        return BlurBuilder.makeTransparent(outputBitmap, 150);
+    }
+
+    public static Bitmap makeTransparent(Bitmap src, int value) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap transBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(transBitmap);
+        canvas.drawARGB(0, 0, 0, 0);
+        // config paint
+        final Paint paint = new Paint();
+        paint.setAlpha(value);
+        canvas.drawBitmap(src, 0, 0, paint);
+        return transBitmap;
     }
 }

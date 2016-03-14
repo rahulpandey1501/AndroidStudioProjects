@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:local="http://schemas.android.com/tools"
     android:id="@+id/main_content"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -24,8 +26,9 @@
                 android:src="@drawable/header_movie"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+                android:focusable="true"
                 android:fitsSystemWindows="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:layout_collapseMode="pin" />
 
             <android.support.v7.widget.Toolbar
@@ -45,6 +48,7 @@
                     android:id="@+id/spinner_nav"
                     android:layout_gravity="right"
                     android:visibility="invisible"
+                    android:popupBackground="@color/colorPrimaryDark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                     <TextView
@@ -79,7 +83,6 @@
         app:tabIndicatorColor="@color/colorAccent"
         android:layout_gravity="bottom"
         app:layout_anchor="@id/appbar"
-        android:background="@color/colorPrimary"
         app:layout_anchorGravity="bottom"
         app:tabIndicatorHeight="3dp"
         app:tabMode="scrollable"
@@ -90,6 +93,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_marginTop="50dp"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

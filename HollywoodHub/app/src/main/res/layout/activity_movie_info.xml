@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/movie_root_layout"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#A6000000"
+    android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rahul.mymovies.MovieContent">
@@ -32,11 +31,21 @@
             android:gravity="center"
             android:id="@+id/movie_layout"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/movie_root_layout"
+                android:padding="16dp"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="200dp"
+                android:layout_width="180dp"
                 android:visibility="visible"
-                android:layout_height="270dp"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:id="@+id/image"/>
+            </LinearLayout>
             <LinearLayout
                 android:padding="8dp"
                 android:layout_width="match_parent"

@@ -39,7 +39,7 @@
         android:maxLines="1"
         android:textAllCaps="true"
         android:ellipsize="end"
-        android:textColor="#a8000000"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"

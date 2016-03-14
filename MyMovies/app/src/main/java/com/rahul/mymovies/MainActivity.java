@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -30,7 +33,9 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -41,13 +46,15 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int id = R.id.nav_gallery, count=2, previous_id = R.id.nav_gallery;
-    String title, link;
+    String title, link, imgDecodableString;
     DrawerLayout drawer;
     FloatingActionButton fab;
     Snackbar snack;
     Menu mMenu;
     android.support.v7.widget.SearchView searchView;
     boolean doubleBackToExitPressedOnce = false;
+    ImageView imageView;
+    private static int RESULT_LOAD_IMAGE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("My Movies");
         getSupportActionBar().setElevation(0);
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +117,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         initializeFragment("http://world4ufree.cc/category/hollywood/", "Hollywood", false);
     }
 
@@ -127,8 +134,8 @@ public class MainActivity extends AppCompatActivity
             this.doubleBackToExitPressedOnce = true;
             snack = Snackbar.make(drawer, "Press back again to exit", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(android.R.color.white));
-            ViewGroup group = (ViewGroup) snack.getView();
-            group.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//            ViewGroup group = (ViewGroup) snack.getView();
+//            group.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             snack.show();
 //            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
@@ -293,4 +300,32 @@ public class MainActivity extends AppCompatActivity
     public FloatingActionButton getFloatingActionButton() {
         return fab;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Log.d("filepath", filePathColumn.toString());
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();
+                ImageView imgView = (ImageView) findViewById(R.id.imageView);
+                // Set the Image in ImageView after decoding the String
+                imgView.setImageBitmap(BitmapFactory
+                        .decodeFile(imgDecodableString));
+                }else {
+                    Toast.makeText(this, "You haven't picked Image",
+                            Toast.LENGTH_LONG).show();
+                }
+        }catch (Exception e){
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
+
