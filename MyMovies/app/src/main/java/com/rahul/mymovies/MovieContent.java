@@ -340,11 +340,16 @@ public class MovieContent extends AppCompatActivity {
         duration.setText("Time : "+movieData.duration);
         release.setText("Release : "+movieData.release);
         rating.setText("Rating : " + movieData.rating);
-        if (movieData.rating != "N/A") {
-            ratingBar.setVisibility(View.VISIBLE);
-            ratingBar.setRating((float) (Float.parseFloat((movieData.rating.split("/")[0])) / 2.0));
+        try {
+
+            if (movieData.rating != "N/A") {
+                ratingBar.setVisibility(View.VISIBLE);
+                ratingBar.setRating((float) (Float.parseFloat((movieData.rating.split("/")[0])) / 2.0));
+            }
+            else ratingBar.setVisibility(View.GONE);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        else ratingBar.setVisibility(View.GONE);
         genre.setText(movieData.genre);
         story.setText(movieData.story);
         director.setText("Director : "+movieData.credits.get("Director:"));
