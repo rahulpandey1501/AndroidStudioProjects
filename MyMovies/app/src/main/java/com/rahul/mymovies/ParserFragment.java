@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -114,8 +115,8 @@ public class ParserFragment extends Fragment{
             try{
                 Log.d("search", params[0]);
                 document = Jsoup.connect(params[0])
-//                        .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
-                        .timeout(5000)
+                        .timeout(0)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
                         .followRedirects(true)
                         .get();
                 Elements elements = document.getElementsByClass("cover");
@@ -222,7 +223,8 @@ public class ParserFragment extends Fragment{
     private void initializeRecyclerView() {
         adapter = new MovieListAdapter(getContext(), list, true);
         recyclerView.setAdapter(adapter);
-        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 240);
+        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 300);
+//        mGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mGridLayoutManager);
     }
 

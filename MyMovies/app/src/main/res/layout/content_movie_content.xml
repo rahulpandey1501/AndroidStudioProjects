@@ -239,7 +239,6 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:background="@android:color/transparent"
             android:paddingRight="8dp"
             android:paddingLeft="8dp"
             android:layout_width="match_parent"

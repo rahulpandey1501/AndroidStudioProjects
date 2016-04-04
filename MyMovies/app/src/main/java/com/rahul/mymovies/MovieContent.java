@@ -251,6 +251,7 @@ public class MovieContent extends AppCompatActivity {
 //                Log.d("GET", httpURLConnection.getResponseCode() + "");
 //                Log.d("GET", total+"");
                 Document document = Jsoup.connect(link)
+                        .timeout(0)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
                         .get();
 
@@ -405,6 +406,7 @@ public class MovieContent extends AppCompatActivity {
             Document documentIMDB = null;
             try {
                 documentIMDB = Jsoup.connect(imdbLink)
+                        .timeout(0)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
                         .get();
             Elements e = documentIMDB.getElementsByClass("credit_summary_item");

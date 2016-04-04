@@ -112,21 +112,22 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-        drawer.openDrawer(GravityCompat.START);
+//        drawer.openDrawer(GravityCompat.START);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        initializeFragment("http://world4ufree.cc/category/hollywood/", "Hollywood", false);
+        initializeFragment("http://world4ufree.cc/category/bollywood/", "Bollywood", false);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START) && !doubleBackToExitPressedOnce) {
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
+            drawer.openDrawer(GravityCompat.START);
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 return;
@@ -153,12 +154,13 @@ public class MainActivity extends AppCompatActivity
         this.mMenu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 initializeFragment("http://world4ufree.cc/?s=" + query.replace(' ', '+'), query, true);
                 setTitle(query);
+                searchView.onActionViewCollapsed();
                 return false;
             }
 

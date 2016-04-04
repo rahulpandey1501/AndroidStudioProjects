@@ -109,8 +109,8 @@ public class Parser extends Fragment {
             try{
                 Log.d("link  ", params[0]);
                 document = Jsoup.connect(params[0])
+                        .timeout(0)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
-                        .timeout(5000)
                         .followRedirects(true)
                         .get();
                 if (!fromSearch) {
@@ -170,6 +170,7 @@ public class Parser extends Fragment {
                     swipeMessage.bringToFront();
                 }
                 if (list.isEmpty() || list.size() == previousListCount) {
+                    loading = true;
                     Toast.makeText(getContext(), "Content not found"+" may be its network problem "+"please try again", Toast.LENGTH_SHORT).show();
                     if (pageCount > 1)
                         pageCount--;
@@ -184,11 +185,9 @@ public class Parser extends Fragment {
                         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                             if (loading && dy > 0 && !fromSearch) {
                                 if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == list.size() - 1) {
-                                    Log.d("scroll ", pageCount + "");
                                     loading = false;
                                     pageCount++;
                                     isNetworkAvailable();
-//                                jsoupAsyncTask.execute(link + "?lcp_page0=" + pageCount);
                                 }
                             }
                         }

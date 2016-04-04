@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Parser fragment= new Parser(DEFAULT_LINK, "All Applications", list, false);
+        Parser fragment= new Parser(DEFAULT_LINK, "xApps", list, false);
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
@@ -120,10 +122,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START) && !doubleBackToExitPressedOnce) {
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
+            drawer.openDrawer(GravityCompat.START);
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 return;
@@ -153,7 +156,7 @@ public class MainActivity extends AppCompatActivity
 //    }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         this.mMenu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity
                 searchView.setIconified(true);
                 searchView.setQuery(query, false);
                 searchView.clearFocus();
+                searchView.onActionViewCollapsed();
                 return true;
             }
 
@@ -241,9 +245,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_search) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Enter Your Application Name");
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setGravity(Gravity.CENTER_HORIZONTAL);
             final EditText input = new EditText(this);
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
+            input.setSingleLine(true);
+            layout.setPadding(20, 20, 20, 0);
+            layout.addView(input);
             builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -265,6 +273,11 @@ public class MainActivity extends AppCompatActivity
                 dialog.cancel();
             }
         });
+            input.setInputType(
+                    InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+            );
+            builder.setView(layout);
             builder.show();
             input.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

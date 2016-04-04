@@ -32,7 +32,9 @@ public class BlurBuilder {
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
 
-        return BlurBuilder.makeTransparent(outputBitmap, 150);
+        return outputBitmap;
+
+//        return BlurBuilder.makeTransparent(outputBitmap, 150);
     }
 
     public static Bitmap makeTransparent(Bitmap src, int value) {

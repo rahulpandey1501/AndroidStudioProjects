@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_category" android:icon="@android:drawable/ic_menu_camera"
+            android:title="Categories" />
+        <item android:id="@+id/nav_permis" android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Permissions" />
+    </group>
+    <item android:title="Application">
+        <menu>
+            <item android:id="@+id/nav_sys_app" android:icon="@android:drawable/ic_menu_share"
+                android:title="System Apps" />
+            <item android:id="@+id/nav_user_app" android:icon="@android:drawable/ic_menu_send"
+                android:title="User Apps" />
+        </menu>
+    </item>
+    <item android:title="Communicate">
+        <menu>
+            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
+                android:title="Share" />
+            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

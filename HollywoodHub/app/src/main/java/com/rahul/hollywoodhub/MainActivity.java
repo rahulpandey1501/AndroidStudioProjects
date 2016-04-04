@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static String DEFAULT_LINK="http://www.watchfree.to/?sort=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setViewPagerAdapter(DEFAULT_LINK);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+        searchView.onActionViewCollapsed();
         return true;
     }
 

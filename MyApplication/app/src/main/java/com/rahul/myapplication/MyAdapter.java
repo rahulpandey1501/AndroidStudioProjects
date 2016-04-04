@@ -56,9 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Information information = list.get(position);
         currentPosition = position;
-        //Toast.makeText(context, information.desc, Toast.LENGTH_LONG).show();
         if (flag) {
-//            holder.title.setText(information.title.substring(0,1).toUpperCase()+information.title.substring(1).toLowerCase().replace("is here", "").replace("[latest]", "").replace("!",""));//substring(0, (information.title.contains("is Here"))?information.title.indexOf("is Here"):information.title.length()));
             holder.title.setText(information.title.replace("is here", "").replace("[latest]", "").replace("!",""));
             holder.dTitle.setText(information.desc);
             Picasso.with(context).load(information.image_link).into(holder.imageView);
@@ -66,10 +64,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    sharedPreferencesEditor.putString("next_link", information.link);
-                    sharedPreferencesEditor.putString("desc", information.desc);
-                    sharedPreferencesEditor.putString("image_link", information.image_link);
-                    sharedPreferencesEditor.commit();
+//                    sharedPreferencesEditor.putString("next_link", information.link);
+//                    sharedPreferencesEditor.putString("desc", information.desc);
+//                    sharedPreferencesEditor.putString("image_link", information.image_link);
+//                    sharedPreferencesEditor.commit();
                     Toast.makeText(context, information.title, Toast.LENGTH_LONG).show();
                     return true;
                 }

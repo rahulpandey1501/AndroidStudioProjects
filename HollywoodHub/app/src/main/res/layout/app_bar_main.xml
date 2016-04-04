@@ -72,7 +72,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
     <android.support.design.widget.TabLayout
         android:id="@+id/detail_tabs"
         android:paddingStart="4dp"

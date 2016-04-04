@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/movie_root_layout"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
@@ -12,7 +13,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="20dp"
         android:background="@android:color/transparent"
         android:id="@+id/view_span_dwnlnk"/>
 
@@ -33,7 +34,6 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/movie_root_layout"
                 android:padding="16dp"
                 android:gravity="center"
                 android:layout_margin="8dp"

@@ -24,24 +24,23 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:gravity="center"
-        android:padding="8dp"
-        android:background="#A8000000"
         android:layout_centerInParent="true"
         android:orientation="horizontal">
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateTint="#ffffff"/>
+            android:indeterminate="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="17sp"
+            android:visibility="gone"
+            android:textStyle="bold"
             android:gravity="center|left"
-            android:textColor="#ffffff"
+            android:textColor="#D50000"
             android:text="loading ..."/>
     </LinearLayout>
     <android.support.v4.widget.SwipeRefreshLayout
@@ -54,6 +53,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:background="#F2F2F2"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerList">
         </android.support.v7.widget.RecyclerView>

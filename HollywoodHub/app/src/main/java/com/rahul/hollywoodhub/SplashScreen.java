@@ -22,7 +22,8 @@ public class SplashScreen extends AppCompatActivity {
         anim.reset();
         LinearLayout l=(LinearLayout) findViewById(R.id.splash_view);
         l.clearAnimation();
-        l.startAnimation(anim);
+
+//        l.startAnimation(anim);
 
         new Handler().postDelayed(new Runnable() {
 
@@ -33,8 +34,6 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                // This method will be executed once the timer is over
-                // Start your app main activity
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
 

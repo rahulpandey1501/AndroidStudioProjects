@@ -52,7 +52,7 @@ public class RecyclerViewFragment extends Fragment{
     private View layout;
     private LinearLayout progressBar, swipeMessage;
     private List<Information> list;
-    private VarColumnGridLayoutManager mGridLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
     private boolean loading = true;
     private SwipeRefreshLayout swipeContainer;
     private int previousListCount = 0, pageCount=1;
@@ -124,8 +124,8 @@ public class RecyclerViewFragment extends Fragment{
             try{
                 Log.d("LINK ", params[0]);
                 Document document = Jsoup.connect(params[0])
+                        .timeout(0)
                         .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0")
-                        .timeout(5000)
                         .followRedirects(true)
                         .get();
                 Elements elements = document.getElementsByClass("item");
@@ -163,10 +163,6 @@ public class RecyclerViewFragment extends Fragment{
                     mRecyclerView.smoothScrollToPosition(previousListCount);
                 mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    }
-
-                    @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         if (loading && dy > 0 && !fromSearch) {
                             if (mGridLayoutManager.findLastCompletelyVisibleItemPosition() == list.size() - 1) {
@@ -189,8 +185,8 @@ public class RecyclerViewFragment extends Fragment{
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setVisibility(View.VISIBLE);
         int numberOfColumns = 3;
-        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 220);
-//        mGridLayoutManager = new GridLayoutManager(getContext(), numberOfColumns, GridLayoutManager.VERTICAL, false);
+//        mGridLayoutManager = new VarColumnGridLayoutManager(getContext(), 300);
+        mGridLayoutManager = new GridLayoutManager(getContext(), numberOfColumns, GridLayoutManager.VERTICAL, false);
 //        mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 //            @Override
 //            public int getSpanSize(int position) {

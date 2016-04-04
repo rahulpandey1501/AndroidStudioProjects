@@ -107,7 +107,7 @@ public class MovieInfo extends Activity {
         protected Boolean doInBackground(String... params) {
             try {
                 Document document = Jsoup.connect(params[0])
-                        .timeout(5000)
+                        .timeout(0)
                         .followRedirects(true)
                         .get();
 

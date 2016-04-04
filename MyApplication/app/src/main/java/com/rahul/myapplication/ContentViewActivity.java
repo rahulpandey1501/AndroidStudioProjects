@@ -68,10 +68,8 @@ public class ContentViewActivity extends AppCompatActivity {
         textView.setText(desc);
 
         textView.setMovementMethod(new ScrollingMovementMethod());
-        //Toast.makeText(getApplicationContext(), "description  "+desc, Toast.LENGTH_SHORT).show();
         ((AppCompatActivity) this).getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().set
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerList);
 
@@ -111,6 +109,7 @@ public class ContentViewActivity extends AppCompatActivity {
             recyclerView.setVisibility(View.GONE);
             dialog = new ProgressDialog(ContentViewActivity.this);
             dialog.setMessage("Please Wait !");
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             super.onPreExecute();
         }
@@ -132,7 +131,7 @@ public class ContentViewActivity extends AppCompatActivity {
                         Information information = new Information();
                         information.title = dwn_lnk.text();
                         information.link = dwn_lnk.attr("href");
-                        if (!information.link.contains("prochina"))
+                        if (!information.title.isEmpty())
                             list.add(information);
                     }
                 }
