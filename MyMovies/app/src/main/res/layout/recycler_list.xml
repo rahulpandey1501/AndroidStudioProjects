@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/recycler_gridlist"
-        android:background="@color/colorPrimary"
+        android:background="@color/recyclerBackgroundColor"
         android:layout_height="match_parent">
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +25,6 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:padding="4dp"
                 android:background="@color/colorPrimaryDark"
                 android:layout_height="match_parent">
                 <ImageView

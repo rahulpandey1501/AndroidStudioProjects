@@ -31,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -66,13 +68,11 @@ public class MovieContent extends AppCompatActivity {
     ImageView image, arrowImage;
     private String link ,imdbLink;
     private MovieListAdapter adapter;
-    LinearLayout movieLayout,rootLayout,arrowConatinerLayout;
-//    NestedScrollView rootLayout;
+    LinearLayout movieLayout,arrowConatinerLayout;
+    View rootLayout;
     List<Information> list;
-//    RelativeLayout rootLayout;
     RecyclerView recyclerView;
     RatingBar ratingBar;
-    static int arrowToggle = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -86,6 +86,7 @@ public class MovieContent extends AppCompatActivity {
         movieData.credits = new HashMap<>();
         list = new ArrayList<>();
         intializeView();
+        title.setText((String) getIntent().getExtras().get("title"));
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         link = (String) getIntent().getExtras().get("link");
@@ -137,6 +138,15 @@ public class MovieContent extends AppCompatActivity {
         });
         ParserAsyncTask parserAsyncTask = new ParserAsyncTask();
         parserAsyncTask.execute();
+        intializeAd();
+    }
+
+    private void intializeAd() {
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("384F57DE71755443E9FF6CB793E0F105")
+                .build();
+        adView.loadAd(adRequest);
     }
 
     private void intializeView() {
@@ -152,7 +162,7 @@ public class MovieContent extends AppCompatActivity {
         writer = (TextView) findViewById(R.id.writer);
         cast = (TextView) findViewById(R.id.cast);
         movieLayout = (LinearLayout) findViewById(R.id.movie_layout);
-        rootLayout = (LinearLayout) findViewById(R.id.movie_root_layout);
+        rootLayout = (View) findViewById(R.id.movie_root_layout);
         arrowConatinerLayout = (LinearLayout) findViewById(R.id.arrow_conatiner_layout);
         arrowImage = (ImageView) findViewById(R.id.arrow_imageview);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -169,6 +179,7 @@ public class MovieContent extends AppCompatActivity {
             dialog.setTitle((String) getIntent().getExtras().get("title"));
                     dialog.setMessage("Please wait while fetching movie data");
             dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
             dialog.show();
             recyclerView.setVisibility(View.GONE);
             movieLayout.setVisibility(View.GONE);
@@ -313,7 +324,8 @@ public class MovieContent extends AppCompatActivity {
     }
 
     private void verifyData() {
-        movieData.title = movieData.title!=null?movieData.title:(String)getIntent().getExtras().get("title");
+        movieData.title = (String) getIntent().getExtras().get("title");
+        //movieData.title = movieData.title!=null?movieData.title:(String)getIntent().getExtras().get("title");
         movieData.duration = movieData.duration!=null?movieData.duration:"N/A";
         movieData.release = movieData.release!=null?movieData.release:"N/A";
         movieData.rating = movieData.rating!=null?movieData.rating:"N/A";

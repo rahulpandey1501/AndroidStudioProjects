@@ -2,6 +2,7 @@ package com.rahul.mymovies;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,11 +37,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
     Snackbar snack;
     Menu mMenu;
-    android.support.v7.widget.SearchView searchView;
+    AdView adView;
     boolean doubleBackToExitPressedOnce = false;
     ImageView imageView;
     private static int RESULT_LOAD_IMAGE = 1;
@@ -114,6 +114,12 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
 //        drawer.openDrawer(GravityCompat.START);
         toggle.syncState();
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("384F57DE71755443E9FF6CB793E0F105")
+                .build();
+        adView.loadAd(adRequest);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

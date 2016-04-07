@@ -25,6 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
@@ -47,6 +51,7 @@ public class ContentViewActivity extends AppCompatActivity {
     MyAdapter myAdapter;
     ImageView imageView;
     List<Information> list = new ArrayList<>();
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,13 @@ public class ContentViewActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerList);
 
+        initializeAd();
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                displayInterstitial();
+            }
+        });
+
         isNetworkAvailable();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +100,20 @@ public class ContentViewActivity extends AppCompatActivity {
                         }).show();
             }
         });
+    }
+
+    private void initializeAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+
+    public void displayInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     @Override
@@ -117,7 +143,9 @@ public class ContentViewActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                document = Jsoup.connect(link).get();
+                document = Jsoup.connect(link)
+                        .timeout(0)
+                        .get();
                 Elements elements = document.select("div.postcontent > *");
                 title = elements.get(1).text();
                 if (title.isEmpty())

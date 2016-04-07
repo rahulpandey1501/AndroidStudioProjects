@@ -38,6 +38,14 @@
             android:name=".PNRActivity"
             android:label="@string/title_activity_pnr"
             android:theme="@style/AppTheme"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+        <activity android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
     </application>
 
 </manifest>
