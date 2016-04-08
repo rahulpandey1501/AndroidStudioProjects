@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
     android:id="@+id/movie_root_layout"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rahul.mymovies.MovieContent">
@@ -14,19 +15,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@android:color/transparent"
+        android:background="#90000000"
         android:id="@+id/view_span_dwnlnk"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:focusable="true"
-        android:layout_marginTop="20dp"
+        android:layout_above="@+id/adView"
         android:fadeScrollbars="false"
-        android:focusableInTouchMode="true"
-        android:descendantFocusability="beforeDescendants"
+        android:background="#90000000"
         android:fillViewport="true"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -337,4 +338,15 @@
     </ScrollView>
 
 
-</LinearLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        android:background="#90000000"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

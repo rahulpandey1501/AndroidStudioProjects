@@ -42,6 +42,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -120,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (genre[position].equalsIgnoreCase("all")) {
                     collapsingToolbar.setTitle("Hollywood");
                     getSupportActionBar().setTitle("Hollywood");
-                }
-                else{
+                } else {
                     collapsingToolbar.setTitle(genre[position]);
                     getSupportActionBar().setTitle(genre[position]);
                 }
@@ -161,6 +162,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        intializeAd();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -177,6 +180,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mTabLayout.setTabsFromPagerAdapter(mTabPagerAdapter);
         mViewPager.setAdapter(mTabPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void intializeAd() {
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        adView.loadAd(adRequest);
     }
 
     @Override

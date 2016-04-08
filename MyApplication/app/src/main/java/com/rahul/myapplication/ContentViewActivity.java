@@ -56,6 +56,7 @@ public class ContentViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeAd();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Montserrat-Regular.ttf");
         setContentView(R.layout.activity_content_view);
         textView= (TextView)findViewById(R.id.desc);
@@ -78,7 +79,6 @@ public class ContentViewActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerList);
 
-        initializeAd();
         mInterstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
                 displayInterstitial();
@@ -94,7 +94,7 @@ public class ContentViewActivity extends AppCompatActivity {
                         .setAction("OPEN", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHORTEST_API_TOKEN_LINK+link));
                                 startActivity(intent);
                             }
                         }).show();
@@ -103,15 +103,18 @@ public class ContentViewActivity extends AppCompatActivity {
     }
 
     private void initializeAd() {
-        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd = new InterstitialAd(ContentViewActivity.this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
         AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("A69E02EA77C7055082FECD6DB9775598")
                 .build();
         mInterstitialAd.loadAd(adRequest);
     }
 
     public void displayInterstitial() {
+        Log.d("abc", "hello");
         if (mInterstitialAd.isLoaded()) {
+            Log.d("abc", "13245");
             mInterstitialAd.show();
         }
     }
@@ -120,8 +123,8 @@ public class ContentViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
-//                finish();
+                finish();
+//                onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);

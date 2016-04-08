@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -42,7 +44,8 @@ public class MovieInfo extends Activity {
     ImageView image;
     private String link;
     private RecyclerViewAdapter adapter;
-    LinearLayout movieLayout,rootLayout, tvSeriesLayout;
+    LinearLayout movieLayout, tvSeriesLayout;
+    View rootLayout;
     List<Information> downloadList;
     RecyclerView recyclerView;
     RatingBar ratingBar;
@@ -81,6 +84,9 @@ public class MovieInfo extends Activity {
 
             }
         });
+
+        intializeAd();
+
         dialog = new ProgressDialog(MovieInfo.this);
         dialog.setTitle((String) getIntent().getExtras().get("title"));
         dialog.setMessage("Please wait while fetching movie data");
@@ -88,6 +94,14 @@ public class MovieInfo extends Activity {
         dialog.show();
         ParserAsyncTask parserAsyncTask = new ParserAsyncTask();
         parserAsyncTask.execute(link);
+    }
+
+    private void intializeAd() {
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("384F57DE71755443E9FF6CB793E0F105")
+                .build();
+        adView.loadAd(adRequest);
     }
 
     class ParserAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -294,7 +308,7 @@ public class MovieInfo extends Activity {
         writer = (TextView) findViewById(R.id.writer);
         cast = (TextView) findViewById(R.id.cast);
         movieLayout = (LinearLayout) findViewById(R.id.movie_layout);
-        rootLayout = (LinearLayout) findViewById(R.id.movie_root_layout);
+        rootLayout = (View) findViewById(R.id.movie_root_layout);
         tvSeriesLayout = (LinearLayout) findViewById(R.id.tvseries_layout);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         selectEpisode = (Spinner) findViewById(R.id.select_episode);

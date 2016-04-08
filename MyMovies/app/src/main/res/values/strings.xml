@@ -14,4 +14,5 @@
     <string name="title_activity_movie_content">MovieContent</string>
     <string name="title_activity_demo">Demo</string>
     <string name="title_activity_pnr">PNRActivity</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-5057724905062766/9493114137</string>
 </resources>

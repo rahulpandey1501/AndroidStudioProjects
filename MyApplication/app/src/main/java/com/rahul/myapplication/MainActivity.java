@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     Menu mMenu;
     String title;
     FloatingActionButton fab;
+    private  AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,10 +120,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initializeAd() {
-        AdView adView = (AdView) findViewById(R.id.adView);
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
-        adView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);
+    }
+
+    @Override
+    protected void onPause() {
+        mAdView.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAdView!=null){  // Check if Adview is not null in case of fist time load.
+            mAdView.resume();}
     }
 
     @Override

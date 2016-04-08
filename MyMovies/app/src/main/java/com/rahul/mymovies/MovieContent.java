@@ -1,10 +1,12 @@
 package com.rahul.mymovies;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -22,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -31,8 +34,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -73,11 +78,11 @@ public class MovieContent extends AppCompatActivity {
     List<Information> list;
     RecyclerView recyclerView;
     RatingBar ratingBar;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);// hide statusbar of Android
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_content);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -86,6 +91,7 @@ public class MovieContent extends AppCompatActivity {
         movieData.credits = new HashMap<>();
         list = new ArrayList<>();
         intializeView();
+        CustomFont.overrideFonts(this, rootLayout, "fonts/Montserrat-Regular.ttf");
         title.setText((String) getIntent().getExtras().get("title"));
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -110,11 +116,10 @@ public class MovieContent extends AppCompatActivity {
         arrowConatinerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (recyclerView.getVisibility() == View.VISIBLE){
+                if (recyclerView.getVisibility() == View.VISIBLE) {
                     recyclerView.setVisibility(View.GONE);
                     arrowImage.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     recyclerView.setVisibility(View.VISIBLE);
                     arrowImage.setVisibility(View.GONE);
                 }
@@ -142,11 +147,20 @@ public class MovieContent extends AppCompatActivity {
     }
 
     private void intializeAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
 //                .addTestDevice("384F57DE71755443E9FF6CB793E0F105")
                 .build();
         adView.loadAd(adRequest);
+        mInterstitialAd.loadAd(adRequest);
+    }
+
+    public void displayInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     private void intializeView() {
@@ -179,7 +193,6 @@ public class MovieContent extends AppCompatActivity {
             dialog.setTitle((String) getIntent().getExtras().get("title"));
                     dialog.setMessage("Please wait while fetching movie data");
             dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
             dialog.show();
             recyclerView.setVisibility(View.GONE);
             movieLayout.setVisibility(View.GONE);
@@ -319,6 +332,11 @@ public class MovieContent extends AppCompatActivity {
             recyclerView.setLayoutManager(new WrappingLinearLayoutManager(getApplicationContext()));
             if (dialog.isShowing())
                 dialog.dismiss();
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    displayInterstitial();
+                }
+            });
             new ParserIMDBAsyncTask().execute();
         }
     }

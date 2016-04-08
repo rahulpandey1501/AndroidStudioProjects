@@ -45,11 +45,22 @@
         <item name="android:paddingLeft">4px</item>
         <item name="android:paddingBottom">4px</item>
         <item name="android:textColor">#ffffffff</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:shadowColor">@color/colorPrimaryDark</item>
-        <item name="android:shadowDx">2</item>
-        <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">2</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+    </style>
+
+    <style name="NavigationTab" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@color/colorPrimaryDark</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+        <item name="tabIndicatorColor">@android:color/white</item>
+        <item name="tabTextAppearance">@style/NavigationTabTextAppeareance</item>
+    </style>
+
+    <style name="NavigationTabTextAppeareance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">#90ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

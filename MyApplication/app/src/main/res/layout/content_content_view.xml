@@ -49,16 +49,17 @@
             android:layout_marginRight="8dp"
             android:scrollbars="vertical"
             android:scrollIndicators="start"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLines="10"
-            android:ellipsize="end"
-            android:gravity="fill_horizontal"
-            android:text="No Description No Description erwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Description erwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Description \nerwerwerw Description \nerwerwerw Description erwerwerw Description \nerwerwerw Description erwerwerw Description erwerwerw Description erwerwerw"
-            android:id="@+id/desc"
-            android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLines="10"
+                android:ellipsize="end"
+                android:gravity="fill_horizontal"
+                android:text="No Description No Description erwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Description erwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerwe Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Descriptionerwerwerw Description \nerwerwerw Description \nerwerwerw Description erwerwerw Description \nerwerwerw Description erwerwerw Description erwerwerw Description erwerwerw"
+                android:id="@+id/desc"
+                android:textSize="13sp" />
         </ScrollView>
     </RelativeLayout>
 

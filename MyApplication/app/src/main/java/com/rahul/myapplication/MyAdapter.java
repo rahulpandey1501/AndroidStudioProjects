@@ -89,7 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(information.link));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHORTEST_API_TOKEN_LINK+information.link));
                     browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(browserIntent);
                 }
@@ -109,20 +109,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
             Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Regular.ttf");
+            Typeface tfD = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
             if(flag) {
                 title = (TextView) itemView.findViewById(R.id.title);
                 dTitle = (TextView) itemView.findViewById(R.id.titleDesc);
                 imageView = (ImageView) itemView.findViewById(R.id.imageView);
                 itemView.findViewById(R.id.descPageLayout).setVisibility(View.GONE);
                 title.setTypeface(tf);
-            }else{
+                dTitle.setTypeface(tfD);
+            }else {
                 dTitle = (TextView) itemView.findViewById(R.id.dTitle);
                 dLink = (TextView) itemView.findViewById(R.id.dLink);
                 dTitle.setTypeface(tf);
                 itemView.findViewById(R.id.descPageLayout).setVisibility(View.VISIBLE);
-                itemView.findViewById(R.id.title).setVisibility(View.GONE);
-                itemView.findViewById(R.id.titleDesc).setVisibility(View.GONE);
-                itemView.findViewById(R.id.imageView).setVisibility(View.GONE);
+                itemView.findViewById(R.id.card_view_layout).setVisibility(View.GONE);
             }
         }
     }
